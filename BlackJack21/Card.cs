@@ -11,7 +11,7 @@ namespace BlackJack21
         // properties of the Card
         public string Rank { get; }
         public string Suit { get; }
-        public int Value {  get; }
+        public int Value { get; }
 
         //constructor
         public Card (string rank, string suit, int value)
@@ -20,6 +20,9 @@ namespace BlackJack21
             Suit = suit;
             Value = value;
         }
-
+        public override string ToString()
+        {
+            return ($"{Rank} of {Suit}");
+        }
     }
 }
