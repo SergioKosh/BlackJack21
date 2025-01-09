@@ -22,6 +22,18 @@ namespace BlackJack21
             Console.WriteLine($"Welcom, dear {Name}!");
             Console.WriteLine("I won't check your ID, but tell me how old you are!");
             Age = Convert.ToInt32( Console.ReadLine() );
+
+            if (Age < 18)
+            {
+                Console.WriteLine("You are not allowed to play. See you next time!");
+                Console.ReadLine();
+                Environment.Exit(48);
+            }
+            else
+            {
+                Console.WriteLine("You are old enough to make your own mistakes");
+            }
+
             Console.WriteLine("Just one more question... Do you know rules of the game? " +
                 "Don't worry I will explain you, but answer simple yes or no");
             answer = Console.ReadLine();
