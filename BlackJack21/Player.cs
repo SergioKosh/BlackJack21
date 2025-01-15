@@ -55,12 +55,17 @@ namespace BlackJack21
                 Console.WriteLine("Do you understand the rules?");
                
                 answer = Console.ReadLine();
+                if (answer == "yes")
+                {
+                    break;
+                }
 
                 while ((answer != "no") || (answer != "yes"))  {
                     Console.WriteLine($"It's not what I asked you... Do you know the rules of the Game?" +
                         $" Seriosly, {Name}, yes or no.");
                 }
             }
+            Console.Clear();
             Console.WriteLine("Alright, we are done, let's start!");
 
 

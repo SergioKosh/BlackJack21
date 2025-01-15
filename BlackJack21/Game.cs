@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.Eventing.Reader;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.Remoting.Lifetime;
@@ -23,17 +24,31 @@ namespace BlackJack21
             deck = new Deck();
             player = new Hand();
             dealer = new Hand();
+            you = new Player();
+
+        }
+
+        public void Start() { 
 
             you.GetInformation();
+            
             //take cards
 
-            player.TakeCard(deck.DrawCard());
-            player.TakeCard(deck.DrawCard());
+            
+            player.TakeCard(deck.DrawCardOpen());
+            player.TakeCard(deck.DrawCardOpen());
+            Console.WriteLine("Dealer is drawing a card...");
+            dealer.TakeCard(deck.DrawCardOpen());
+            Console.WriteLine("Dealer is drawing a card...");
             dealer.TakeCard(deck.DrawCard());
-            dealer.TakeCard(deck.DrawCard());
+
+            PlayerTurn();
+            DealerTurn();
+            WhoWin();
              
         }
 
+        // player's turn
         public void PlayerTurn()
         {
             string answer = "hit";
@@ -51,6 +66,7 @@ namespace BlackJack21
                 if (player.GetValue() > 21)
                 {
                     Console.WriteLine("You've lost!");
+                    break;
                 }
 
                 Console.WriteLine("Stay or hit?");
@@ -64,12 +80,13 @@ namespace BlackJack21
             }
         }
 
+        // method for dealer's turn
         public void DealerTurn()
         {
             Console.WriteLine("Dealer's turn!");
 
             // Each game has a rule about whether the dealer must hit or stand on soft 17
-            while (dealer.GetValue() > 17)
+            while (dealer.GetValue() < 17)
             {
                 Card card = deck.DrawCard();
                 dealer.TakeCard(card);
@@ -79,7 +96,38 @@ namespace BlackJack21
                 if (dealer.GetValue() > 21)
                 {
                     Console.WriteLine($"{you.Name}, you are lucky today! You win!");
+                    break;
                 }
+            }
+        }
+
+        // method to find a winner
+        public void WhoWin()
+        {
+            if (player.GetValue() > 21)
+            {
+                Console.WriteLine("You have lost!");
+            }
+
+            else if (dealer.GetValue() > 21)
+            {
+                Console.WriteLine("You WIN!");
+            }
+            else if (player.GetValue() == dealer.GetValue())
+            {
+                Console.WriteLine("It's tie!");
+            }
+            else if (player.GetValue() > dealer.GetValue())
+            {
+                Console.WriteLine("You've got " + player.GetValue() + " and the house got " + dealer.GetValue());
+            }
+            else if (player.GetValue() < dealer.GetValue())
+            {
+                Console.WriteLine("You've lost with " + player.GetValue() + " pomits " + "the dealer's got " + dealer.GetValue());
+            }
+            else
+            {
+                Console.WriteLine("What else could it be??");
             }
         }
 
