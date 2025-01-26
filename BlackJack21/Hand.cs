@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BlackJack21
 {
@@ -24,10 +21,12 @@ namespace BlackJack21
         public int GetValue()
         {
             int value = 0;
-
+            
+            // The foreach loop is an easier and more readable alternative to for loop
             foreach (Card card in cards)
             {
                 value += card.Value;
+                //if the cards is ACE 
                 if ((value > 10) && (card.Rank == "Ace"))
                 {
                     value -= 10;

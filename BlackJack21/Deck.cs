@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BlackJack21
 {
@@ -12,6 +10,7 @@ namespace BlackJack21
         //using List instead of arrays because List objects can shrink, arrays have fix size 
         private List<Card> cards;
 
+        // I was using OpenAI for creating Deck()
         public Deck()
         {
             string[] suits = { "Diamonds", "Hearts", "Clubs", "Spades" };

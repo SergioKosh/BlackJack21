@@ -1,13 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics.Eventing.Reader;
-using System.Linq;
-using System.Reflection;
-using System.Runtime.Remoting.Lifetime;
-using System.Runtime.Remoting.Messaging;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BlackJack21
 {
@@ -28,16 +19,22 @@ namespace BlackJack21
 
         }
 
-        public void Start() { 
+        public async void Start() { 
 
+            //Collecting information
             you.GetInformation();
-            
-            //take cards
 
-            
+            //taking cards
+
+            Console.WriteLine("");
+            Console.WriteLine("You are drawing cards...");
             player.TakeCard(deck.DrawCardOpen());
             player.TakeCard(deck.DrawCardOpen());
-            Console.WriteLine("Dealer is drawing a card...");
+            Console.WriteLine("");
+           
+           
+            Console.WriteLine("Dealer is drawing a card..."); 
+            //one cards should be opened for the player 
             dealer.TakeCard(deck.DrawCardOpen());
             Console.WriteLine("Dealer is drawing a card...");
             dealer.TakeCard(deck.DrawCard());
@@ -47,14 +44,18 @@ namespace BlackJack21
             WhoWin();
              
         }
+        //some ideas were taken from https://www.youtube.com/watch?v=z1bEnzXH_dw
 
         // player's turn
         public void PlayerTurn()
         {
             string answer = "hit";
+            Console.WriteLine("");
             Console.WriteLine("It's your turn!");
             Console.WriteLine($"You've got {player.GetValue()}");
             Console.WriteLine("Choose your desteny! Stay or hit?");
+
+            //asking the player about his decision 
             answer = Console.ReadLine().ToLower();
             while (answer == "hit")
             {
@@ -63,10 +64,12 @@ namespace BlackJack21
                 Console.WriteLine($"You took " + card.ToString());
                 Console.WriteLine($"You've got {player.GetValue()}");
 
+                //if the player gets more than 21 he is busted
                 if (player.GetValue() > 21)
                 {
                     Console.WriteLine("You've lost!");
-                    break;
+                    Console.ReadKey();
+                    Environment.Exit(0);
                 }
 
                 Console.WriteLine("Stay or hit?");
@@ -83,6 +86,7 @@ namespace BlackJack21
         // method for dealer's turn
         public void DealerTurn()
         {
+            Console.WriteLine("");
             Console.WriteLine("Dealer's turn!");
 
             // Each game has a rule about whether the dealer must hit or stand on soft 17
@@ -96,6 +100,7 @@ namespace BlackJack21
                 if (dealer.GetValue() > 21)
                 {
                     Console.WriteLine($"{you.Name}, you are lucky today! You win!");
+                    Console.WriteLine("");
                     break;
                 }
             }
@@ -119,6 +124,7 @@ namespace BlackJack21
             }
             else if (player.GetValue() > dealer.GetValue())
             {
+                Console.WriteLine("Congrats! You've WON!");
                 Console.WriteLine("You've got " + player.GetValue() + " and the house got " + dealer.GetValue());
             }
             else if (player.GetValue() < dealer.GetValue())

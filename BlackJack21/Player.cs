@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BlackJack21
 {
@@ -23,6 +19,7 @@ namespace BlackJack21
             Console.WriteLine("I won't check your ID, but tell me how old you are!");
             Age = Convert.ToInt32( Console.ReadLine() );
 
+            // not for kids
             if (Age < 18)
             {
                 Console.WriteLine("You are not allowed to play. See you next time!");
@@ -43,6 +40,8 @@ namespace BlackJack21
 
             while (answer == "no")
             {
+                // explanation of the rules I took from https://www.setfor.net/blog-639d5899302.html
+
                 Console.WriteLine("Blackjack is a card game where players aim to get a hand that is closer to " +
                     "21 than the dealer’s hand, without going over 21. Each card is worth its face value, with " +
                     "face cards (Jack, Queen, King) worth 10 and Aces worth either 1 or 11. ");
